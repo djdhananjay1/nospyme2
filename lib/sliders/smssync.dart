@@ -4,6 +4,7 @@ class SMSSyncPage extends StatefulWidget {
   const SMSSyncPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SMSSyncPageState createState() => _SMSSyncPageState();
 }
 
@@ -16,14 +17,14 @@ class _SMSSyncPageState extends State<SMSSyncPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('SMS Sync'),
+        title: const Text('SMS Sync'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(isSyncing ? 'Syncing SMS messages...' : 'Not syncing'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (isSyncing) {
@@ -43,12 +44,12 @@ class _SMSSyncPageState extends State<SMSSyncPage> {
 
                 // The sync process is complete, so show a success message.
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
+                  const SnackBar(
                     content: Text('SMS messages synced successfully!'),
                   ),
                 );
               },
-              child: Text('Sync SMS Messages'),
+              child: const Text('Sync SMS Messages'),
             ),
           ],
         ),
@@ -59,6 +60,6 @@ class _SMSSyncPageState extends State<SMSSyncPage> {
 
 class SMSSync {
   Future<void> syncSMS() async {
-    // TODO: Implement this method to sync SMS messages
+    //  Implement this method to sync SMS messages
   }
 }

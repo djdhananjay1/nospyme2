@@ -4,6 +4,7 @@ class EnvRecPage extends StatefulWidget {
   const EnvRecPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EnvRecPageState createState() => _EnvRecPageState();
 }
 
@@ -16,7 +17,7 @@ class _EnvRecPageState extends State<EnvRecPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Environment Recorder'),
+        title: const Text('Environment Recorder'),
       ),
       body: Center(
         child: Column(
@@ -25,7 +26,7 @@ class _EnvRecPageState extends State<EnvRecPage> {
             Text(isRecording
                 ? 'Recording the environment...'
                 : 'Not recording the environment'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (isRecording) {

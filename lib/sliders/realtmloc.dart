@@ -5,6 +5,7 @@ class RealTimeLocationPage extends StatefulWidget {
   const RealTimeLocationPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RealTimeLocationPageState createState() => _RealTimeLocationPageState();
 }
 
@@ -24,7 +25,7 @@ class _RealTimeLocationPageState extends State<RealTimeLocationPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Real Time Location'),
+        title: const Text('Real Time Location'),
       ),
       body: StreamBuilder<LocationData>(
         stream: _locationStream,
@@ -35,7 +36,7 @@ class _RealTimeLocationPageState extends State<RealTimeLocationPage> {
           } else if (snapshot.hasError) {
             return Text('Error: ${snapshot.error}');
           } else {
-            return Text('Loading...');
+            return const Text('Loading...');
           }
         },
       ),

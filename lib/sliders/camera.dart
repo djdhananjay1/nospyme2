@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,12 +8,13 @@ class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _CameraPageState createState() => _CameraPageState();
 }
 
 class _CameraPageState extends State<CameraPage> {
-  final CameraController _cameraController =
-      CameraController(CameraLensDirection.back);
+  final CameraController _cameraController = CameraController(
+      CameraLensDirection.back as CameraDescription, ResolutionPreset.high);
   XFile? _takenPicture;
 
   @override
@@ -48,10 +51,10 @@ class _CameraPageState extends State<CameraPage> {
     // Upload the taken picture to Firebase Storage.
     final storageReference =
         FirebaseStorage.instance.ref().child('pictures/${takenPicture.name}');
-    final uploadTask = storageReference.putFile(takenPicture);
+    final uploadTask = storageReference.putFile(takenPicture as File);
     await uploadTask.whenComplete(() async {
       // Send a notification to the admin with the URL of the uploaded picture.
-      // TODO: Implement this method to send a notification to the admin.
+      // Implement this method to send a notification to the admin.
     });
   }
 
@@ -60,18 +63,18 @@ class _CameraPageState extends State<CameraPage> {
     if (_cameraController.value.isInitialized) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Camera'),
+          title: const Text('Camera'),
         ),
         body: Center(
           child: CameraPreview(_cameraController),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: _takePicture,
-          child: Icon(Icons.camera),
+          child: const Icon(Icons.camera),
         ),
       );
     } else {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     }

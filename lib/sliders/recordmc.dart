@@ -9,6 +9,7 @@ class RecordMCPage extends StatefulWidget {
   const RecordMCPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _RecordMCPageState createState() => _RecordMCPageState();
 }
 
@@ -21,14 +22,14 @@ class _RecordMCPageState extends State<RecordMCPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Call Recorder'),
+        title: const Text('Call Recorder'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(isRecording ? 'Recording...' : 'Not recording'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () async {
                 if (isRecording) {
@@ -57,17 +58,38 @@ class CallRecorder {
   final FirebaseDatabase _database = FirebaseDatabase.instance;
 
   Future<void> startRecording() async {
-    // TODO: Implement this method to start recording the call
+    // : Implement this method to start recording the call
   }
 
   Future<void> stopRecording() async {
-    // TODO: Implement this method to stop recording the call
+    // : Implement this method to stop recording the call
   }
 
   Future<File> getRecordedAudioFile() async {
-    // TODO: Implement this method to return the recorded audio file
-    // This could be done by using the `CallRecorder.recorder` property to get the audio recorder, and then calling the `AudioRecorder.stop()` method to stop recording.
-    // Once the recording has stopped, you can get the recorded audio file by calling the `AudioRecorder.getAudioFile()` method.
+    // Get the audio recorder.
+    final audioRecorder = AudioRecorder();
+
+    // Start recording.
+    await audioRecorder.start();
+
+    // Stop recording.
+    await audioRecorder.stop();
+
+    // Get the recorded audio file.
+    return await audioRecorder.getAudioFile();
+  }
+
+  Future<void> saveRecordedAudioFileToFirebaseStorage() async {
+    // Get the recorded audio file.
+    final recordedAudioFile = await getRecordedAudioFile();
+
+    // Upload the recorded audio file to Firebase Storage.
+    final storageReference =
+        FirebaseStorage.instance.ref().child('recorded_audio_files');
+    final uploadTask = storageReference.putFile(recordedAudioFile);
+    await uploadTask.whenComplete(() async {
+      // The uploaded audio file is now available at the URL returned by the upload task.
+    });
   }
 
   Future<void> recordAndUploadCall() async {
@@ -87,7 +109,7 @@ class CallRecorder {
     await startRecording();
 
     // Wait for 5 minutes
-    final timer = Timer(Duration(minutes: 5), () async {
+    final timer = Timer(const Duration(minutes: 5), () async {
       // Stop recording the call
       await stopRecording();
 
@@ -108,7 +130,7 @@ class CallRecorder {
         await databaseReference.set(storageReference.getDownloadURL());
 
         // Make the URL of the uploaded audio file available to the admin
-        // TODO: Implement this method to make the URL of the uploaded audio file available to the admin
+        // : Implement this method to make the URL of the uploaded audio file available to the admin
         // This could be done by saving the URL to a shared preference, or by sending the URL to the admin via a notification.
       });
     });

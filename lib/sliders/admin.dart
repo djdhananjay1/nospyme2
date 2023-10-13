@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nospyme2/sliders/recordmc.dart';
-import '../main.dart';
 
 class AdminDashboard extends StatelessWidget {
   final CallRecorder callRecorder;
@@ -12,19 +11,19 @@ class AdminDashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Dashboard'),
+        title: const Text('Admin Dashboard'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('The recording is currently running.'),
-            SizedBox(height: 20),
+            const Text('The recording is currently running.'),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 callRecorder.stopRecording();
               },
-              child: Text('Stop Recording'),
+              child: const Text('Stop Recording'),
             ),
           ],
         ),
@@ -40,18 +39,19 @@ class AdminCameraButton extends StatefulWidget {
       : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _AdminCameraButtonState createState() => _AdminCameraButtonState();
 }
 
 class _AdminCameraButtonState extends State<AdminCameraButton> {
   @override
   Widget build(BuildContext context) {
-    // TODO: Implement this method to check if the user is logged in as an admin.
+    // Implement this method to check if the user is logged in as an admin.
     // If the user is not logged in as an admin, return an empty widget.
 
     return FloatingActionButton(
       onPressed: widget.onPressed,
-      child: Icon(Icons.camera),
+      child: const Icon(Icons.camera),
     );
   }
 }

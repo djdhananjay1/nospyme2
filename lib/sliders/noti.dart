@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -6,6 +8,7 @@ class NotiPage extends StatefulWidget {
   const NotiPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _NotiPageState createState() => _NotiPageState();
 }
 
@@ -39,21 +42,22 @@ class _NotiPageState extends State<NotiPage> {
     // Upload the synced notifications to Firebase Storage.
     final storageReference =
         FirebaseStorage.instance.ref().child('notifications');
-// TODO: Upload the synced notifications to Firebase Storage.
+//  Upload the synced notifications to Firebase Storage.
+    final file = File('notifications.json');
     final uploadTask = storageReference.putFile(file);
     await uploadTask.whenComplete(() async {
-      // TODO: Send a notification to the admin with the URL of the uploaded notifications.
+      //  Send a notification to the admin with the URL of the uploaded notifications.
     });
 
     // Send a notification to the admin with the URL of the uploaded notifications.
-    // TODO: Implement this method to send a notification to the admin.
+    //  Implement this method to send a notification to the admin.
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Notification Sync'),
+        title: const Text('Notification Sync'),
       ),
       body: Center(
         child: Column(
@@ -62,10 +66,10 @@ class _NotiPageState extends State<NotiPage> {
             Text(isSyncing
                 ? 'Syncing notifications...'
                 : 'Not syncing notifications'),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ElevatedButton(
               onPressed: _syncNotifications,
-              child: Text('Sync Notifications'),
+              child: const Text('Sync Notifications'),
             ),
           ],
         ),
@@ -76,14 +80,14 @@ class _NotiPageState extends State<NotiPage> {
 
 class NotificationSync {
   Future<void> syncWhatsAppNotifications() async {
-    // TODO: Implement this method to sync WhatsApp notifications
+    //  Implement this method to sync WhatsApp notifications
   }
 
   Future<void> syncInstagramNotifications() async {
-    // TODO: Implement this method to sync Instagram notifications
+    //  Implement this method to sync Instagram notifications
   }
 
   Future<void> syncMessengerNotifications() async {
-    // TODO: Implement this method to sync Messenger notifications
+    //  Implement this method to sync Messenger notifications
   }
 }

